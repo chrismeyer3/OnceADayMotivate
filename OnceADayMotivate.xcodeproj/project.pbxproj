@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8325CBC9244392D7009E3FC7 /* DailyQuote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8325CBC8244392D7009E3FC7 /* DailyQuote.swift */; };
 		8335BD8E23D3702B00245529 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BD8D23D3702B00245529 /* AppDelegate.swift */; };
 		8335BD9023D3702B00245529 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BD8F23D3702B00245529 /* SceneDelegate.swift */; };
 		8335BD9223D3702B00245529 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8335BD9123D3702B00245529 /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 		20B58151403A61C1CF1212A1 /* Pods_OnceADayMotivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OnceADayMotivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38B7E8C3E010731F68AD917A /* Pods-OnceADayMotivate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnceADayMotivate.debug.xcconfig"; path = "Target Support Files/Pods-OnceADayMotivate/Pods-OnceADayMotivate.debug.xcconfig"; sourceTree = "<group>"; };
 		7A7DAE0A5FF692038DE288FC /* Pods-OnceADayMotivate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OnceADayMotivate.release.xcconfig"; path = "Target Support Files/Pods-OnceADayMotivate/Pods-OnceADayMotivate.release.xcconfig"; sourceTree = "<group>"; };
+		8325CBC8244392D7009E3FC7 /* DailyQuote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuote.swift; sourceTree = "<group>"; };
 		8335BD8A23D3702B00245529 /* OnceADayMotivate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnceADayMotivate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8335BD8D23D3702B00245529 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8335BD8F23D3702B00245529 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		8325CBC724394F7C009E3FC7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8325CBC8244392D7009E3FC7 /* DailyQuote.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8325CBC9244392D7009E3FC7 /* DailyQuote.swift in Sources */,
 				83F56D63241EEE53002CAA4C /* CustomTableViewCell.swift in Sources */,
 				8335BD9223D3702B00245529 /* ViewController.swift in Sources */,
 				8335BD8E23D3702B00245529 /* AppDelegate.swift in Sources */,

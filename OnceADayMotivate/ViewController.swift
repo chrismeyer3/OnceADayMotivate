@@ -40,6 +40,8 @@ class ViewController: UIViewController {
     // Firebase Reference
     var db: Firestore!
     
+    var todaysQuote = DailyQuote()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.isScrollEnabled = true
@@ -58,7 +60,22 @@ class ViewController: UIViewController {
         // Firestore things
         // This calls the Database to grab the current date's quote to set it as the initial loading image
         db = Firestore.firestore()
-        self.dailyQuote.text = getQuoteFromDate(database: db, dateVal: todayFullDate)
+        //let todaysQuote = createQuote(database: db, dateVal: todayFullDate)
+        //self.dailyQuote.text = "Fetching Quote"
+        //self.dailyQuote.text = todaysQuote.quoteText()
+        //let todaysQuote =  DailyQuote()
+        todaysQuote.date = todayFullDate
+        todaysQuote.updateQuote(database: db)
+        DispatchQueue.main.async {
+            print("Attempting dispatch queue")
+            self.dailyQuote.text = self.todaysQuote.quoteText()
+            self.updateTheQuoteText()
+        }
+        print("Loaded the UI")
+        //updateTheQuoteText()
+        //self.dailyQuote.reloadInputViews()
+        
+
         
         //let dbReference = db.collection("dailyQuotes")
 //        dbRef.whereField("date", isEqualTo: todayFullDate).getDocuments() { (querySnapshot, err) in
@@ -90,6 +107,11 @@ class ViewController: UIViewController {
         
         
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        updateTheQuoteText()
+    }
+    
     
     // Function when you click on the menu
     @IBAction func onClickMenu(_ sender: Any) {
@@ -125,7 +147,12 @@ class ViewController: UIViewController {
         }, completion: nil)
     }
     
-
+    func updateTheQuoteText() {
+        print(todaysQuote.quoteText())
+        self.dailyQuote.text = todaysQuote.quoteText()
+        print(self.dailyQuote.text)
+    }
+    
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -184,26 +211,31 @@ extension Date {
 //    return dailyQuoteText
 //}
 
-func getQuoteFromDate(database: Firestore, dateVal: String) {
+func createQuote(database: Firestore, dateVal: String) -> DailyQuote {
+    let todaysQuote = DailyQuote()
+    //let dispatchGroup = DispatchGroup()
+    //dispatchGroup.enter()
+    todaysQuote.date = dateVal
     let dbRef = database.collection("dailyQuotes")
     dbRef.whereField("date", isEqualTo: dateVal).getDocuments() { (querySnapshot, err) in
          if err != nil {
-            var dailyQuoteText = "Unable to Get Quote"
+            todaysQuote.quote = "Unable to Get Quote"
                 print("Failed to get the item")
+                //dispatchGroup.leave()
              } else {
                  for document in querySnapshot!.documents {
                     print("Checking for date" + dateVal)
-                    let quoteVal = document.get("quote") as! String
-                    let authorVal = document.get("author") as! String
-                    dailyQuoteText = quoteVal + "\n\n -" + authorVal
-                    print("Writing the quote " + dailyQuoteText)
+                    todaysQuote.author = document.get("author") as! String
+                    todaysQuote.quote = document.get("quote") as! String
+                    print("Retrieved author " + todaysQuote.author)
+                    print("And quote " + todaysQuote.quote)
+                    //dispatchGroup.leave()
+                    
                  }
              }
      }
-    print("Returning the quote " + dailyQuoteText)
-    return dailyQuoteText
+    return todaysQuote
 }
 
-func quoteFetched() {
-    
-}
+
+
