@@ -16,7 +16,7 @@ class DailyQuote {
 
 
     func quoteText() -> String {
-        return (quote + "\n\n -" + author)
+        return ("\"" + quote + "\"\n\n -" + author)
     }
     
     func updateQuote(database: Firestore){

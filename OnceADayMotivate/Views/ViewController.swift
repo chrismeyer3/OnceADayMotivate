@@ -38,9 +38,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var dailyDate: UILabel!
     
     // Firebase Reference
-    var db: Firestore!
+    let db = Firestore.firestore()
     
     var todaysQuote = DailyQuote()
+    var yesterdaysQuote = DailyQuote()
+    var tomorrowsQuote = DailyQuote()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,60 +58,41 @@ class ViewController: UIViewController {
         let todayDay = todayDate.day
         dailyDate.text = todayMonth + "\n" + todayDay
         let todayFullDate = todayDate.fulldate
-        
-        // Firestore things
-        // This calls the Database to grab the current date's quote to set it as the initial loading image
-        db = Firestore.firestore()
-        //let todaysQuote = createQuote(database: db, dateVal: todayFullDate)
-        //self.dailyQuote.text = "Fetching Quote"
-        //self.dailyQuote.text = todaysQuote.quoteText()
-        //let todaysQuote =  DailyQuote()
-        todaysQuote.date = todayFullDate
-        todaysQuote.updateQuote(database: db)
-        DispatchQueue.main.async {
-            print("Attempting dispatch queue")
-            self.dailyQuote.text = self.todaysQuote.quoteText()
-            self.updateTheQuoteText()
-        }
-        print("Loaded the UI")
-        //updateTheQuoteText()
-        //self.dailyQuote.reloadInputViews()
-        
 
+        // Display the Quote Of The Day
+        displayTodaysQuote(database: db, dateVal: todayFullDate)
         
-        //let dbReference = db.collection("dailyQuotes")
-//        dbRef.whereField("date", isEqualTo: todayFullDate).getDocuments() { (querySnapshot, err) in
-//            if err != nil {
-//                    self.dailyQuote.text = "Unable to Get Quote"
-//                } else {
-//                    for document in querySnapshot!.documents {
-//                        let quoteVal = document.get("quote") as! String
-//                        let authorVal = document.get("author") as! String
-//                        self.dailyQuote.text = quoteVal + "\n\n -" + authorVal
-//                    }
-//                }
-//        }
-      //  self.dailyQuote.text = getQuoteFromDate(db: db, dateVal: todayFullDate)
-        // Use this code to get a document based on its specific value
-//        let docRef = db.collection("dailyQuotes").document("85pbGVqSUjUAnS6D4G2x")
-//        docRef.getDocument { (document, error) in
-//             if let document = document, document.exists {
-//                 let docData = document.data()
-//               // self.dailyQuote.text = docData?["quote"] as? String
-//                let quoteVal = docData?["quote"] as! String
-//                let authorVal = docData?["author"] as! String
-//                self.dailyQuote.text = quoteVal + "\n\n -" + authorVal
-//              } else {
-//                 print("Document does not exist")
-//
-//              }
-//        }
-        
+        // Get Yesterrdays's Quote to be ready
+        yesterdaysQuote = createQuote(database: db, dateVal: todayFullDate)
         
     }
+
+    func updateTheQuoteText() {
+        print(todaysQuote.quoteText())
+        self.dailyQuote.text = todaysQuote.quoteText()
+
+    }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        updateTheQuoteText()
+    // This function is called during viewDidLoad() to retrieve the quote of the day
+    func displayTodaysQuote(database: Firestore, dateVal: String) {
+        let firstQuote = DailyQuote()
+        todaysQuote.date = dateVal
+        let dbRef = database.collection("dailyQuotes")
+        dbRef.whereField("date", isEqualTo: dateVal).getDocuments() { (querySnapshot, err) in
+            if err != nil {
+                firstQuote.quote = "Connectivity Issues"
+            } else {
+                 for document in querySnapshot!.documents {
+                    firstQuote.author = document.get("author") as! String
+                    firstQuote.quote = document.get("quote") as! String
+                }
+                DispatchQueue.main.async {
+                    self.dailyQuote.text = firstQuote.quoteText()
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    
     }
     
     
@@ -147,12 +130,7 @@ class ViewController: UIViewController {
         }, completion: nil)
     }
     
-    func updateTheQuoteText() {
-        print(todaysQuote.quoteText())
-        self.dailyQuote.text = todaysQuote.quoteText()
-        print(self.dailyQuote.text)
-    }
-    
+
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -190,48 +168,19 @@ extension Date {
     }
 }
 
-//func getQuoteFromDate(database: Firestore, dateVal: String) -> String {
-//    var dailyQuoteText = "Quote Text Base"
-//    let dbRef = database.collection("dailyQuotes")
-//    dbRef.whereField("date", isEqualTo: dateVal).getDocuments() { (querySnapshot, err) in
-//         if err != nil {
-//                dailyQuoteText = "Unable to Get Quote"
-//                print("Failed to get the item")
-//             } else {
-//                 for document in querySnapshot!.documents {
-//                    print("Checking for date" + dateVal)
-//                    let quoteVal = document.get("quote") as! String
-//                    let authorVal = document.get("author") as! String
-//                    dailyQuoteText = quoteVal + "\n\n -" + authorVal
-//                    print("Writing the quote " + dailyQuoteText)
-//                 }
-//             }
-//     }
-//    print("Returning the quote " + dailyQuoteText)
-//    return dailyQuoteText
-//}
-
+// Create a Quote
 func createQuote(database: Firestore, dateVal: String) -> DailyQuote {
     let todaysQuote = DailyQuote()
-    //let dispatchGroup = DispatchGroup()
-    //dispatchGroup.enter()
     todaysQuote.date = dateVal
     let dbRef = database.collection("dailyQuotes")
     dbRef.whereField("date", isEqualTo: dateVal).getDocuments() { (querySnapshot, err) in
          if err != nil {
             todaysQuote.quote = "Unable to Get Quote"
-                print("Failed to get the item")
-                //dispatchGroup.leave()
              } else {
                  for document in querySnapshot!.documents {
-                    print("Checking for date" + dateVal)
                     todaysQuote.author = document.get("author") as! String
                     todaysQuote.quote = document.get("quote") as! String
-                    print("Retrieved author " + todaysQuote.author)
-                    print("And quote " + todaysQuote.quote)
-                    //dispatchGroup.leave()
-                    
-                 }
+                    }
              }
      }
     return todaysQuote

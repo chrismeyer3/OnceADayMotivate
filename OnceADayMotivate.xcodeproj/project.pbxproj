@@ -65,12 +65,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8325CBC724394F7C009E3FC7 /* Classes */ = {
+		8325CBC724394F7C009E3FC7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				8325CBC8244392D7009E3FC7 /* DailyQuote.swift */,
 			);
-			path = Classes;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		8335BD8123D3702B00245529 = {
@@ -94,10 +94,11 @@
 		8335BD8C23D3702B00245529 /* OnceADayMotivate */ = {
 			isa = PBXGroup;
 			children = (
-				8325CBC724394F7C009E3FC7 /* Classes */,
+				83FBA303244B670700C35FE1 /* Controllers */,
+				83FBA302244B66F500C35FE1 /* Views */,
+				8325CBC724394F7C009E3FC7 /* Models */,
 				8335BD8D23D3702B00245529 /* AppDelegate.swift */,
 				8335BD8F23D3702B00245529 /* SceneDelegate.swift */,
-				8335BD9123D3702B00245529 /* ViewController.swift */,
 				8335BD9323D3702B00245529 /* Main.storyboard */,
 				8335BD9623D3703200245529 /* Assets.xcassets */,
 				8335BD9823D3703200245529 /* LaunchScreen.storyboard */,
@@ -106,6 +107,21 @@
 				83F56D662428287A002CAA4C /* GoogleService-Info.plist */,
 			);
 			path = OnceADayMotivate;
+			sourceTree = "<group>";
+		};
+		83FBA302244B66F500C35FE1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8335BD9123D3702B00245529 /* ViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		83FBA303244B670700C35FE1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
