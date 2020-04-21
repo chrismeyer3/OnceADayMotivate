@@ -41,8 +41,13 @@ class ViewController: UIViewController {
     let db = Firestore.firestore()
     
     var todaysQuote = DailyQuote()
-    var yesterdaysQuote = DailyQuote()
-    var tomorrowsQuote = DailyQuote()
+    var previousQuote = DailyQuote()
+    var nextQuote = DailyQuote()
+    
+    var todayDate = Date()
+    var previousDate = Date().dayBefore
+    var nextDate = Date().dayAfter
+    var currentDate = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,24 +57,34 @@ class ViewController: UIViewController {
         tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "Cell")
         
         // Create a way to show the current date as the text.
-        
-        let todayDate = Date()
-        let todayMonth = todayDate.month
-        let todayDay = todayDate.day
-        dailyDate.text = todayMonth + "\n" + todayDay
-        let todayFullDate = todayDate.fulldate
+        dailyDate.text = todayDate.month + "\n" + todayDate.day
 
         // Display the Quote Of The Day
-        displayTodaysQuote(database: db, dateVal: todayFullDate)
+        displayTodaysQuote(database: db, dateVal: todayDate.fulldate)
         
-        // Get Yesterrdays's Quote to be ready
-        yesterdaysQuote = createQuote(database: db, dateVal: todayFullDate)
+        // Get Yesterdays's Quote to be ready
+        previousQuote = createQuote(database: db, dateVal: previousDate.fulldate)
+        nextQuote = createQuote(database: db, dateVal: nextDate.fulldate)
         
+        // Add swipe gestures
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipes(_:)))
+            
+        leftSwipe.direction = .left
+        rightSwipe.direction = .right
+
+        view.addGestureRecognizer(leftSwipe)
+        view.addGestureRecognizer(rightSwipe)
     }
 
     func updateTheQuoteText() {
         print(todaysQuote.quoteText())
         self.dailyQuote.text = todaysQuote.quoteText()
+        self.dailyDate.text = currentDate.month + "\n" + currentDate.day
+        previousDate = currentDate.dayBefore
+        nextDate = currentDate.dayAfter
+        previousQuote = createQuote(database: db, dateVal: previousDate.fulldate)
+        nextQuote = createQuote(database: db, dateVal: nextDate.fulldate)
 
     }
     
@@ -95,7 +110,27 @@ class ViewController: UIViewController {
     
     }
     
-    
+    // Function to handle swipe gestures left and ripe
+    @objc func handleSwipes(_ sender:UISwipeGestureRecognizer) {
+        if(sender.direction == .left) {
+            if currentDate.fulldate == todayDate.fulldate {
+                print("On current date")
+            }
+            else {
+                print("Swipe Left")
+                todaysQuote = nextQuote
+                currentDate = nextDate
+                updateTheQuoteText()
+            }
+        }
+        
+        if(sender.direction == .right) {
+            print("Swipe Right")
+            todaysQuote = previousQuote
+            currentDate = previousDate
+            updateTheQuoteText()
+        }
+    }
     // Function when you click on the menu
     @IBAction func onClickMenu(_ sender: Any) {
         
@@ -151,6 +186,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension Date {
+    static var yesterday: Date { return Date().dayBefore }
+    static var tomorrow:  Date { return Date().dayAfter }
     var month: String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM"
@@ -166,6 +203,16 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: self)
     }
+    var noon: Date {
+        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
+    }
+    var dayBefore: Date {
+        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
+    }
+    var dayAfter: Date {
+        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
+    }
+
 }
 
 // Create a Quote

@@ -11,6 +11,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -20,7 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
-        let db = Firestore.firestore()
+        Auth.auth().signInAnonymously() {  (authResult, error) in
+            guard let user = authResult?.user else { return }
+            let isAnonymous = user.isAnonymous  // true
+            let uid = user.uid
+        }
         
         return true
     }
