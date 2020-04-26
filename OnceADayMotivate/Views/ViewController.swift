@@ -37,6 +37,9 @@ class ViewController: UIViewController {
     // This variable displays today's date
     @IBOutlet weak var dailyDate: UILabel!
     
+    // Menu button top right
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     // Firebase Reference
     let db = Firestore.firestore()
     
@@ -51,11 +54,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.isScrollEnabled = true
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "Cell")
-        
         // Create a way to show the current date as the text.
         dailyDate.text = todayDate.month + "\n" + todayDate.day
 
@@ -131,58 +129,11 @@ class ViewController: UIViewController {
             updateTheQuoteText()
         }
     }
-    // Function when you click on the menu
-    @IBAction func onClickMenu(_ sender: Any) {
-        
-        let window = UIApplication.shared.keyWindow
-        transparentView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        transparentView.frame = self.view.frame
-        window?.addSubview(transparentView)
-        
-        
-        let screenSize = UIScreen.main.bounds.size
-        tableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.height, height: height)
-        window?.addSubview(tableView)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(onClickTransparentView))
-        transparentView.addGestureRecognizer(tapGesture)
-        
-        transparentView.alpha = 0
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
-            self.transparentView.alpha = 0.5
-            self.tableView.frame = CGRect(x: 0, y: screenSize.height - self.height, width: screenSize.width, height: screenSize.height)
-        }, completion: nil)
-        
-
+    
+    @IBAction func pressedMenuButton(_ sender: Any) {
+        performSegue(withIdentifier: "openMenuSegue", sender: nil)
     }
     
-    @objc func onClickTransparentView(){
-        let screenSize = UIScreen.main.bounds.size
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: { self.transparentView.alpha = 0
-            self.tableView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: screenSize.height)
-        }, completion: nil)
-    }
-    
-
-}
-
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? CustomTableViewCell else {fatalError("Unable to dequeue")}
-        cell.lbl.text = menuArray[indexPath.row]
-        cell.settingImage.image = UIImage(named: menuArray[indexPath.row])
-        return cell
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
 }
 
 extension Date {

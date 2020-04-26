@@ -14,6 +14,9 @@
 		8335BD9523D3702B00245529 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8335BD9323D3702B00245529 /* Main.storyboard */; };
 		8335BD9723D3703200245529 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8335BD9623D3703200245529 /* Assets.xcassets */; };
 		8335BD9A23D3703200245529 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8335BD9823D3703200245529 /* LaunchScreen.storyboard */; };
+		83BCB87C244FB5C900DA5CEC /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BCB87B244FB5C900DA5CEC /* MenuTableViewController.swift */; };
+		83C2BA8B245258BF00316D54 /* NotifcationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C2BA8A245258BF00316D54 /* NotifcationViewController.swift */; };
+		83C2BA8F2456107F00316D54 /* AccountsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C2BA8E2456107F00316D54 /* AccountsTableViewController.swift */; };
 		83F56D63241EEE53002CAA4C /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F56D62241EEE53002CAA4C /* CustomTableViewCell.swift */; };
 		83F56D672428287A002CAA4C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83F56D662428287A002CAA4C /* GoogleService-Info.plist */; };
 		B8A4EC348FEB7760ACDBCA5A /* Pods_OnceADayMotivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B58151403A61C1CF1212A1 /* Pods_OnceADayMotivate.framework */; };
@@ -32,6 +35,9 @@
 		8335BD9623D3703200245529 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8335BD9923D3703200245529 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8335BD9B23D3703200245529 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83BCB87B244FB5C900DA5CEC /* MenuTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		83C2BA8A245258BF00316D54 /* NotifcationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifcationViewController.swift; sourceTree = "<group>"; };
+		83C2BA8E2456107F00316D54 /* AccountsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableViewController.swift; sourceTree = "<group>"; };
 		83F56D62241EEE53002CAA4C /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		83F56D662428287A002CAA4C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../OnceADayMotivate/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,12 +100,12 @@
 		8335BD8C23D3702B00245529 /* OnceADayMotivate */ = {
 			isa = PBXGroup;
 			children = (
+				8335BD9323D3702B00245529 /* Main.storyboard */,
 				83FBA303244B670700C35FE1 /* Controllers */,
 				83FBA302244B66F500C35FE1 /* Views */,
 				8325CBC724394F7C009E3FC7 /* Models */,
 				8335BD8D23D3702B00245529 /* AppDelegate.swift */,
 				8335BD8F23D3702B00245529 /* SceneDelegate.swift */,
-				8335BD9323D3702B00245529 /* Main.storyboard */,
 				8335BD9623D3703200245529 /* Assets.xcassets */,
 				8335BD9823D3703200245529 /* LaunchScreen.storyboard */,
 				8335BD9B23D3703200245529 /* Info.plist */,
@@ -112,7 +118,10 @@
 		83FBA302244B66F500C35FE1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				83BCB87B244FB5C900DA5CEC /* MenuTableViewController.swift */,
 				8335BD9123D3702B00245529 /* ViewController.swift */,
+				83C2BA8A245258BF00316D54 /* NotifcationViewController.swift */,
+				83C2BA8E2456107F00316D54 /* AccountsTableViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,8 +250,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8325CBC9244392D7009E3FC7 /* DailyQuote.swift in Sources */,
+				83C2BA8F2456107F00316D54 /* AccountsTableViewController.swift in Sources */,
 				83F56D63241EEE53002CAA4C /* CustomTableViewCell.swift in Sources */,
+				83BCB87C244FB5C900DA5CEC /* MenuTableViewController.swift in Sources */,
 				8335BD9223D3702B00245529 /* ViewController.swift in Sources */,
+				83C2BA8B245258BF00316D54 /* NotifcationViewController.swift in Sources */,
 				8335BD8E23D3702B00245529 /* AppDelegate.swift in Sources */,
 				8335BD9023D3702B00245529 /* SceneDelegate.swift in Sources */,
 			);
