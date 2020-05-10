@@ -26,6 +26,8 @@ class NotifcationViewController: UIViewController {
         let startDate = Date().noon
         timeSelecter.setDate(startDate, animated: false)
         
+        title = "Notifications"
+        
         notificationCenter.getNotificationSettings { (settings) in
           if settings.authorizationStatus != .authorized {
             print("Notifications Not Allowed")

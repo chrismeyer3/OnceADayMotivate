@@ -14,7 +14,8 @@ class AccountsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "Accounts"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -43,6 +44,14 @@ class AccountsTableViewController: UITableViewController {
         cell.textLabel?.text = accounts[indexPath.row]
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let accountSelected = accounts[indexPath.row]
+        
+        if accountSelected == "Facebook" {
+            performSegue(withIdentifier: "dailyReminderSegue", sender: nil)
+        }
     }
 
     /*

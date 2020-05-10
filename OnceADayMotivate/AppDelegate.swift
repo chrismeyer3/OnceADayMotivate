@@ -11,6 +11,8 @@ import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 import UserNotifications
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 
 @UIApplicationMain
@@ -54,5 +56,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+    
 }
 

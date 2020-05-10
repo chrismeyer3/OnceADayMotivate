@@ -59,7 +59,7 @@
                         <outlet property="dailyImage" destination="cVL-jh-dme" id="5KG-xq-Y2q"/>
                         <outlet property="dailyQuote" destination="xXP-yg-Sia" id="tWK-Se-k3p"/>
                         <outlet property="menuButton" destination="5Cj-is-dqJ" id="XTx-yN-hgr"/>
-                        <segue destination="7wf-XS-nBb" kind="presentation" identifier="openMenuSegue" id="aOg-lq-lda"/>
+                        <segue destination="771-Z1-Nic" kind="presentation" identifier="openMenuSegue" id="ymZ-1L-Kbd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -91,8 +91,8 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="ikV-pD-kcj"/>
                     <connections>
-                        <segue destination="CDb-P7-Q4L" kind="presentation" identifier="dailyReminderSegue" destinationCreationSelector="performDailyReminderSegue:" id="u6A-74-qB0"/>
-                        <segue destination="QN3-rt-3V1" kind="presentation" identifier="accountSegue" id="ynb-YY-4eD"/>
+                        <segue destination="CDb-P7-Q4L" kind="show" identifier="dailyReminderSegue" destinationCreationSelector="performDailyReminderSegue:" id="u6A-74-qB0"/>
+                        <segue destination="QN3-rt-3V1" kind="show" identifier="accountSegue" id="ynb-YY-4eD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzM-Tv-pjj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -152,6 +152,22 @@
             <point key="canvasLocation" x="2839.130434782609" y="118.52678571428571"/>
         </scene>
         <!--Navigation Controller-->
+        <scene sceneID="bsX-SS-OO2">
+            <objects>
+                <navigationController id="771-Z1-Nic" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BYo-Ss-ksm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="7wf-XS-nBb" kind="relationship" relationship="rootViewController" id="QkN-CX-M2z"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rGd-Pi-Umi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2009" y="858"/>
+        </scene>
+        <!--Navigation Controller-->
         <scene sceneID="GM3-fR-ZqJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xU8-Xd-Ckm" sceneMemberID="viewController">
@@ -192,6 +208,7 @@
                             <outlet property="delegate" destination="QN3-rt-3V1" id="feG-u3-pVL"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="Jyh-EZ-Swl"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QP6-14-QYC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
